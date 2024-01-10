@@ -63,31 +63,55 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 });
 
 calendar.render();
-$('.btn-primary').click(a => {
-    drId = $("#drId").val();
+$('#submit').click(a => {
+    var drId = $("#drId").val();
     var drName = $("#drName").val();
+
     var drObj = {
         id: drId,
         title: drName
     }
-    calendar.addResource(drObj);
-
+    //resources.push(drObj);
+    //calendar.addResource(drObj);
+    clearField1();
+    drId==""||drName==""?submitError():calendar.addResource(drObj);
 });
 $('#sub').click(a => {
-    var paEmId = $("#PatEml").val();
+    // var paEmId = $("#PatEml").val();
     var patName = $("#PatName").val();
     var sStart = $("#ADST").val();
     var eEnd = $("#ADET").val();
     var mobile = $("#Mob").val();
+    var selectDr = $("#DrId").val();
 
     var patObj = {
         title: patName,
         start: sStart,
         end: eEnd,
         description: mobile,
-        resourceId: drId,
+        resourceId: selectDr
 
     }
-    console.log(patObj);
-    calendar.addEvent(patObj);
+    //events.push(patObj);
+    clearField();
+   calendar.addEvent(patObj);
 });
+function submitError(){
+    Swal.fire({
+      title: " dr Entery pending?",
+      text: "That thing is still around?",
+      icon: "question"
+    });}  
+    
+    function clearField()
+    {$("#PatName").val("");
+    $("#PatEml").val("");
+    $("#ADST").val("");
+    $("#ADET").val("");
+    $("#Mob").val("");
+  }
+     function clearField1()
+     {
+       $("#drId").val("");
+       $("#drName").val("");
+     };
